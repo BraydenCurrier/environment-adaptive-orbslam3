@@ -62,6 +62,13 @@ Behavior:
 - Improved robustness on challenging lighting conditions (e.g., MH04 difficult)
 - Negligible runtime overhead (<1% variation)
 
+## Engineering Impact
+
+- Modified a production-scale visual SLAM pipeline (ORB-SLAM3)
+- Implemented real-time adaptive parameter tuning with minimal runtime overhead
+- Preserved compatibility with existing tracking, mapping, and loop-closing modules
+- Designed changes to integrate cleanly into an existing C++ codebase
+
 ---
 
 ## Setup / Applying Changes
