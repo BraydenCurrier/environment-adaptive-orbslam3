@@ -39,7 +39,6 @@ All modifications were designed to preserve the original ORB-SLAM3 architecture 
 Key modifications were implemented inside the ORB extractor:
 
 - Brightness estimation using `cv::mean(image)`
-- Adaptive FAST threshold scaling between `fIniThFAST_MAX` and `fIniThFAST_MIN`
 - Dynamic adjustment of target feature count:
 
 nfeatures = nOriginalFeatures * featureMultiplier
