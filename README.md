@@ -27,7 +27,7 @@ This project introduces a lightweight adaptive strategy that:
 
 - Computes mean frame brightness in real time
 - Normalizes brightness to a 0–1 range
-- Dynamically adjusts FAST detection thresholds
+- Dynamically adjusts nFeature counts
 - Scales the ORB feature budget between **85%–115%** of baseline
 
 All modifications were designed to preserve the original ORB-SLAM3 architecture and threading model.
