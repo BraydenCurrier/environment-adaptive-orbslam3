@@ -1,33 +1,8 @@
 # Environment-Adaptive ORB-SLAM3 Feature Extraction
 
-Brightness-adaptive ORB feature extraction for improved visual SLAM robustness under varying illumination conditions.
+Brightness-adaptive ORB feature extraction for improved robustness in visual SLAM systems operating under varying illumination conditions.
 
-This project modifies the ORB-SLAM3 feature extractor to dynamically adjust FAST detection thresholds and the target number of ORB features based on scene brightness. The adaptive approach increases feature density in darker environments while reducing unnecessary computation in well-lit scenes, with minimal impact on runtime.
-
----
-
-## Overview
-
-Standard ORB-SLAM3 uses fixed feature extraction parameters across all frames. However, lighting conditions significantly affect keypoint detection quality and tracking stability.
-
-This project introduces a lightweight adaptive module that:
-
-- Computes mean frame brightness in real time
-- Normalizes brightness to a 0–1 range
-- Dynamically adjusts FAST thresholds
-- Scales the ORB feature budget between **85%–115%** of baseline
-
-The adaptive logic is implemented directly inside the ORB extractor and integrates seamlessly with the existing ORB-SLAM3 pipeline.
-
----
-
-## My Contributions
-
-- Implemented brightness-adaptive FAST threshold scaling
-- Added dynamic ORB feature budget adjustment
-- Preserved original ORB-SLAM3 architecture and threading model
-- Evaluated performance on EuRoC Machine Hall and Vicon Room datasets
-- Measured ATE, runtime, CPU usage, and memory overhead
+This project extends the ORB-SLAM3 feature extraction pipeline by dynamically adjusting FAST detection thresholds and the target number of ORB features based on real-time scene brightness. The adaptive approach increases feature density in darker environments while reducing redundant computation in well-lit scenes, maintaining minimal runtime overhead.
 
 ---
 
@@ -35,57 +10,32 @@ The adaptive logic is implemented directly inside the ORB extractor and integrat
 
 ![Architecture](docs/architecture.png)
 
-The adaptive module is inserted before feature extraction and does not modify downstream tracking, mapping, or loop-closing modules.
+The adaptive module is integrated directly inside the ORB extractor and operates before feature distribution. Downstream SLAM components — tracking, local mapping, and loop closing — remain unchanged.
 
 ---
 
-## Key Results
+## Overview
 
-![ATE RMSE](docs/ate_rmse.png)
+Standard ORB-SLAM3 uses fixed feature extraction parameters across all frames. However, lighting conditions strongly influence keypoint detection quality and tracking stability.
 
-**Observations:**
+This project introduces a lightweight adaptive strategy that:
 
-- Comparable accuracy on easy sequences
-- Improved robustness on challenging lighting conditions (e.g., MH04 difficult)
-- Negligible runtime overhead (<1% change)
+- Computes mean frame brightness in real time
+- Normalizes brightness to a 0–1 range
+- Dynamically adjusts FAST detection thresholds
+- Scales the ORB feature budget between **85%–115%** of baseline
 
----
-
-## Upstream Dependency (ORB-SLAM3)
-
-This repository does **not** include the full ORB-SLAM3 source code.
-
-Clone ORB-SLAM3 separately:
-
-git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git
-
-Then replace the original extractor files with the modified versions from this repo.
-
-Example:
-
-cp src/modified_files/ORBextractor.* ORB_SLAM3/src/
+All modifications were designed to preserve the original ORB-SLAM3 architecture and threading model.
 
 ---
 
-## Adaptive Method Details
+## Implementation Details
 
-### Brightness Estimation
-Mean grayscale intensity is computed per frame using:
+Key modifications were implemented inside the ORB extractor:
 
-cv::mean(image)
-
-Brightness is normalized to [0,1].
-
-### FAST Threshold Adaptation
-FAST thresholds are dynamically mapped between:
-
-- fIniThFAST_MAX
-- fIniThFAST_MIN
-
-This adjusts feature detection sensitivity based on illumination.
-
-### Adaptive Feature Budget
-The target number of features is scaled:
+- Brightness estimation using `cv::mean(image)`
+- Adaptive FAST threshold scaling between `fIniThFAST_MAX` and `fIniThFAST_MIN`
+- Dynamic adjustment of target feature count:
 
 nfeatures = nOriginalFeatures * featureMultiplier
 
@@ -93,8 +43,55 @@ Where:
 
 featureMultiplier ∈ [0.85 , 1.15]
 
-- Dark scenes → higher multiplier → more features
-- Bright scenes → lower multiplier → fewer features
+Behavior:
+
+- Dark scenes → increased feature density  
+- Bright scenes → reduced feature count for efficiency
+
+---
+
+## Key Results
+
+![ATE RMSE](docs/ate_rmse.png)
+
+**Observations**
+
+- Comparable performance on easier sequences
+- Improved robustness on challenging lighting conditions (e.g., MH04 difficult)
+- Negligible runtime overhead (<1% variation)
+
+---
+
+## Repository Structure
+
+environment-adaptive-orbslam3/
+├── docs/               # diagrams and figures  
+├── report/             # full technical report  
+├── src/
+│   └── modified_files/ # modified ORB-SLAM3 source files  
+└── scripts/            # helper scripts  
+
+Modified upstream files:
+
+src/modified_files/
+├── ORBextractor.h  
+└── ORBextractor.cc  
+
+---
+
+## Setup / Applying Changes
+
+This repository does **not** include the full ORB-SLAM3 source code.
+
+Clone ORB-SLAM3 separately:
+
+git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git
+
+Apply the adaptive modifications:
+
+./scripts/apply_changes.sh /path/to/ORB_SLAM3
+
+Then rebuild ORB-SLAM3 following the upstream instructions.
 
 ---
 
@@ -109,7 +106,7 @@ Metrics:
 
 - Absolute Trajectory Error (ATE)
 - Runtime
-- CPU usage
+- CPU utilization
 - Memory usage
 
 Full analysis available in:
@@ -118,7 +115,7 @@ report/Report.pdf
 
 ---
 
-## Credits
+## Credits / Upstream
 
 This work builds upon:
 
