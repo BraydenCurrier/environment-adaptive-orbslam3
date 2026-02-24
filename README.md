@@ -64,23 +64,6 @@ Behavior:
 
 ---
 
-## Repository Structure
-
-environment-adaptive-orbslam3/
-├── docs/               # diagrams and figures  
-├── report/             # full technical report  
-├── src/
-│   └── modified_files/ # modified ORB-SLAM3 source files  
-└── scripts/            # helper scripts  
-
-Modified upstream files:
-
-src/modified_files/
-├── ORBextractor.h  
-└── ORBextractor.cc  
-
----
-
 ## Setup / Applying Changes
 
 This repository does **not** include the full ORB-SLAM3 source code.
