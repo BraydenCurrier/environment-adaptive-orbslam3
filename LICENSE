@@ -1,0 +1,23 @@
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright (C) 2024 Brayden Currier
+
+This project includes modifications to ORB-SLAM3.
+
+ORB-SLAM3 is licensed under the GNU General Public License v3.0:
+https://github.com/UZ-SLAMLab/ORB_SLAM3
+
+This repository distributes modified source files consistent with
+the terms of the GPL-3.0 license.
+
+---------------------------------------------------------------------
+
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+Copyright (C) 2007 Free Software Foundation, Inc.
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+
+https://www.gnu.org/licenses/gpl-3.0.txt
