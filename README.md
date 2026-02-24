@@ -51,23 +51,6 @@ The adaptive module is inserted before feature extraction and does not modify do
 
 ---
 
-## Repository Structure
-
-environment-adaptive-orbslam3/
-├── docs/               # diagrams and figures
-├── report/             # full technical report
-├── src/
-│   └── modified_files/ # only upstream files that were changed
-└── scripts/            # helper scripts
-
-Only the modified ORB-SLAM3 source files are included:
-
-src/modified_files/
-├── ORBextractor.h
-└── ORBextractor.cc
-
----
-
 ## Upstream Dependency (ORB-SLAM3)
 
 This repository does **not** include the full ORB-SLAM3 source code.
@@ -132,17 +115,6 @@ Metrics:
 Full analysis available in:
 
 report/Report.pdf
-
----
-
-## Tech Stack
-
-- C++
-- ORB-SLAM3
-- OpenCV
-- Linux
-- Visual SLAM
-- Robotics / Computer Vision
 
 ---
 
