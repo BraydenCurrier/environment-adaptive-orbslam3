@@ -2,6 +2,8 @@
 
 ![Adaptive ORB-SLAM3 Demo](docs/demo.gif)
 
+Adaptive ORB feature extraction running on the EuRoC V1_01_easy sequence.
+
 Brightness-adaptive ORB feature extraction for improved robustness in visual SLAM systems operating under varying illumination conditions.
 
 This project extends the ORB-SLAM3 feature extraction pipeline by dynamically adjusting FAST detection thresholds and the target number of ORB features based on real-time scene brightness. The adaptive approach increases feature density in darker environments while reducing redundant computation in well-lit scenes, maintaining minimal runtime overhead.
