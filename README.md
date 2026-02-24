@@ -1,4 +1,5 @@
 # Environment-Adaptive ORB-SLAM3 Feature Extraction
+![License](https://img.shields.io/badge/license-GPL--3.0-blue)
 
 ![Adaptive ORB-SLAM3 Demo](docs/demo.gif)
 
